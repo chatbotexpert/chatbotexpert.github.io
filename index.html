@@ -17,13 +17,14 @@
     <div id="pdfContainer"></div>
 
     <script>
-        // Function to load the PDF file from GitHub
+        // Function to load the PDF file from GitHub using PDF.js
         function loadPDFFromGitHub() {
             // URL of the raw PDF file on GitHub
             var pdfURL = 'https://raw.githubusercontent.com/chatbotexpert/chatbotexpert.github.io/main/programmable.pdf';
 
-            // Asynchronously load the PDF document
+            // Asynchronously load the PDF document using PDF.js
             pdfjsLib.getDocument(pdfURL).promise.then(function (pdfDoc) {
+                // Render the first page of the PDF
                 pdfDoc.getPage(1).then(function (page) {
                     var canvas = document.createElement('canvas');
                     var context = canvas.getContext('2d');
@@ -36,6 +37,7 @@
                     pdfContainer.innerHTML = '';
                     pdfContainer.appendChild(canvas);
 
+                    // Render the PDF page on the canvas
                     page.render({ canvasContext: context, viewport: viewport });
                 });
             });
@@ -44,5 +46,7 @@
         // Initial call to load the PDF when the page loads
         loadPDFFromGitHub();
     </script>
+
+    <p>If you encounter issues viewing the PDF in the browser, you can <a href="https://raw.githubusercontent.com/chatbotexpert/chatbotexpert.github.io/main/programmable.pdf" target="_blank" download>download the PDF</a> and open it with Adobe Acrobat Pro.</p>
 </body>
 </html>
